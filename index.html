@@ -3,33 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Display File Content</title>
+    <title>Display Text File Content</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            padding: 20px;
-            background-color: #f4f4f4;
-            color: #333;
+            margin: 20px;
         }
-        .content-container {
-            background: #fff;
-            border: 1px solid #ccc;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            font-size: 1.2em;
-        }
-        .file-name {
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: block;
+        .file-content {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 10px;
+            white-space: pre-wrap; /* Preserves line breaks */
+            word-wrap: break-word;
         }
     </style>
 </head>
 <body>
-    <div class="content-container">
-        <span class="file-name">loaderio-f9bb3f1f30895ce5af1bfeadd6b72ddd.txt:</span>
-        <pre>loaderio-f9bb3f1f30895ce5af1bfeadd6b72ddd</pre>
+    <h1>Contents of the File</h1>
+    <div class="file-content" id="fileContent">
+        Loading file content...
     </div>
+
+    <script>
+        // Path to your file
+        const filePath = 'loaderio-f9bb3f1f30895ce5af1bfeadd6b72ddd.txt';
+
+        // Fetch and display file content
+        fetch(filePath)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('File not found');
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('fileContent').textContent = data;
+            })
+            .catch(error => {
+                document.getElementById('fileContent').textContent = 'Error loading file content: ' + error.message;
+            });
+    </script>
 </body>
 </html>
